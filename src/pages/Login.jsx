@@ -1,6 +1,6 @@
 import { useState } from "react";
-// import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-// import { auth, googleProvider } from "../firebase";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "../firebase/firebase.config";
 import { useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
 
@@ -51,61 +51,56 @@ const Login = () => {
   };
 
   return (
-    <div className="">
-      <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 grow">
-        <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl grid md:grid-cols-2 overflow-hidden">
-          {/* Left Section */}
-          <div className="hidden md:flex items-center justify-center bg-gray-50">
-            <h1 className="text-5xl font-bold">
-              <Logo />
-            </h1>
-          </div>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+      <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl grid md:grid-cols-2 overflow-hidden">
+        {/* Left */}
+        <div className="hidden md:flex items-center justify-center bg-gray-50">
+          <h1 className="text-5xl font-bold">
+            <Logo />
+          </h1>
+        </div>
 
-          {/* Right Section */}
-          <div className="p-10">
-            <h2 className="text-2xl font-semibold mb-6">Log in</h2>
+        {/* Right */}
+        <div className="p-10">
+          <h2 className="text-2xl font-semibold mb-6">Log in</h2>
 
-            <form onSubmit={handleLogin} className="space-y-4">
-              <input
-                type="email"
-                placeholder="Email"
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+          <form onSubmit={handleLogin} className="space-y-4">
+            <input
+              type="email"
+              placeholder="Email"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-              <input
-                type="password"
-                placeholder="Password"
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+            <input
+              type="password"
+              placeholder="Password"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-              {error && <p className="text-red-500 text-sm">{error}</p>}
+            {error && <p className="text-red-500 text-sm">{error}</p>}
 
-              <button
-                type="submit"
-                className="w-full bg-neutral font-bold text-white py-3 rounded-lg hover:bg-gray-800 transition"
-              >
-                Log in
-              </button>
-            </form>
-
-            <div className="my-6 text-center divider text-gray-500">or</div>
-
-            <button
-              onClick={handleGoogleLogin}
-              className="w-full border border-gray-300 py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-50 transition"
-            >
-              <img
-                src="https://www.svgrepo.com/show/475656/google-color.svg"
-                className="w-5"
-                alt="google"
-              />
-              Sign in with Google
+            <button className="w-full bg-neutral text-white py-3 rounded-lg">
+              Log in
             </button>
-          </div>
+          </form>
+
+          <div className="divider my-6">or</div>
+
+          <button
+            onClick={handleGoogleLogin}
+            className="w-full border py-3 rounded-lg flex justify-center gap-2"
+          >
+            <img
+              src="https://www.svgrepo.com/show/475656/google-color.svg"
+              className="w-5"
+              alt="google"
+            />
+            Sign in with Google
+          </button>
         </div>
       </div>
     </div>

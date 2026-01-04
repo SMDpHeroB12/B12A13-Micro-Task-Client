@@ -1,7 +1,7 @@
 import { useState } from "react";
-// import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../firebase/firebase.config";
 import { useNavigate } from "react-router-dom";
-// import { auth } from "../firebase";
 import Logo from "../components/Logo";
 
 const Register = () => {
@@ -33,45 +33,41 @@ const Register = () => {
         password
       );
 
-      // update profile
       await updateProfile(result.user, {
         displayName: name,
-        photoURL: photoURL,
+        photoURL,
       });
 
-      // default coin logic (requirement)
+      // Default coin logic (assignment)
       const coin = role === "worker" ? 10 : 50;
 
-      // 🔴 DB save will be implemented later (server API)
-      // Example payload:
-      // {
-      //   name,
-      //   email,
-      //   photoURL,
-      //   role,
-      //   coin
-      // }
+      // DB save will be added later
+      console.log({
+        name,
+        email,
+        photoURL,
+        role,
+        coin,
+      });
 
       const token = await result.user.getIdToken();
       localStorage.setItem("access-token", token);
 
       navigate("/dashboard");
-    } catch (err) {
-      setError("Registration failed. Email may already exist.");
+    } catch {
+      setError("Registration failed. Email already exists.");
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl grid md:grid-cols-2 overflow-hidden">
-        {/* Left Section */}
         <div className="hidden md:flex items-center justify-center bg-gray-50">
           <h1 className="text-5xl font-bold">
             <Logo />
           </h1>
         </div>
 
-        {/* Right Section */}
         <div className="p-10">
           <h2 className="text-2xl font-semibold mb-6">Register</h2>
 
@@ -119,10 +115,7 @@ const Register = () => {
 
             {error && <p className="text-red-500 text-sm">{error}</p>}
 
-            <button
-              type="submit"
-              className="w-full bg-neutral font-bold text-white py-3 rounded-lg hover:bg-gray-800 transition"
-            >
+            <button className="w-full bg-neutral text-white py-3 rounded-lg">
               Register
             </button>
           </form>
